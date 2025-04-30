@@ -34,7 +34,7 @@ export default function Shortcut({ icon, id, title, redirect, editable, onDelete
                 [
                     { title: 'Información', value: 'información' },
                     { title: 'Miembros', value: 'miembros' },
-                    { title: 'Detalles', value: 'detalles' },
+                    { title: 'Llamadas', value: 'llamadas' },
                     { title: 'Recursos', value: 'recursos' },
                 ]
             ]
@@ -46,8 +46,13 @@ export default function Shortcut({ icon, id, title, redirect, editable, onDelete
     });
 
     const handleClick = () => {
-        const redirectPath = shortcutData.redirect.map((item) => item.value).join('/');
-        router.push(`/${redirectPath}`);
+        let redirect = "";
+
+        if(shortcutData.redirect?.length === 1) redirect = shortcutData.redirect[0].value
+        else if(shortcutData.redirect?.length === 2) redirect = `${shortcutData.redirect[0].value}?id=${shortcutData.redirect[1].value}`
+        else if(shortcutData.redirect?.length === 3) redirect = `${shortcutData.redirect[0].value}?id=${shortcutData.redirect[1].value}&tab=${shortcutData.redirect[2].value}`
+
+        router.push(`/${redirect}`);
     };
 
     const handleOptionSelect = (option: string) => {
@@ -135,10 +140,7 @@ export default function Shortcut({ icon, id, title, redirect, editable, onDelete
     }
 
     return (
-        <div
-            className={styles.container}
-            onClick={handleClick}
-        >
+        <div className={styles.container}>
             <Icon
                 name={shortcutData?.icon}
                 size={24}
@@ -146,7 +148,12 @@ export default function Shortcut({ icon, id, title, redirect, editable, onDelete
             />
 
             <div>
-                <p className={styles.title}>{shortcutData?.title}</p>
+                <p
+                    className={styles.title}
+                    onClick={handleClick}
+                >
+                    {shortcutData?.title}
+                </p>
                 <p className={styles.redirect}>Redirige a: {shortcutData?.redirect?.map(redirect => redirect.title).join(' / ')}</p>
             </div>
 
