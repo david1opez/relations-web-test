@@ -82,7 +82,7 @@ export default function Sidebar({ onPageChange }: SidebarProps) {
   return (
     <div className={styles.container}>
       <Image
-        src="/images/logo.png"
+        src="/images/logo.svg"
         alt="Logo"
         width={150}
         height={150}
