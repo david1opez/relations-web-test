@@ -1,8 +1,10 @@
+// src/components/CallComponent/CallComponent.tsx
 import styles from './callComponent.module.css';
 
 // COMPONENTS
 import Icon from '../Icon/Icon';
-import Button from '../Button/Button';
+// --- ya no hace falta Button ---
+// import Button from '../Button/Button';
 
 // UTILS
 import { calcDuration, parseDate } from '@/utils/dateUtils';
@@ -20,24 +22,31 @@ export default function CallComponent({ call, onClick }: CallComponentProps) {
 
             {/* Título y asistentes */}
             <div className={styles.titleContainer}>
-                <h3 className={styles.title}>{call?.title || "Discusión sobre diseño de dashboard"}</h3>
+                <h3 className={styles.title}>
+                    {call?.title || "Discusión sobre diseño de dashboard"}
+                </h3>
                 <p className={styles.attendees}>
-                    <Icon name="user" size={14} color="#6CCDEA"  /> Asistentes: {call?.attendees?.join(", ") || "Rosalinda Vazquez, Irma Galindo, Antonio Mellado"}
+                    <Icon name="user" size={14} color="#6CCDEA" /> Asistentes: {call?.attendees?.join(", ") || "Rosalinda Vazquez, Irma Galindo, Antonio Mellado"}
                 </p>
             </div>
 
             {/* Fecha y duración */}
             <div className={styles.durationContainer}>
                 <p className={styles.metaItem}>
-                    <Icon name="calendar" size={16} color="#6CCDEA"  /> Fecha: {parseDate(call?.startDate)}
+                    <Icon name="calendar" size={16} color="#6CCDEA" /> Fecha: {parseDate(call?.startDate)}
                 </p>
                 <p className={styles.metaItem}>
-                    <Icon name="clock" size={16} color="#6CCDEA"  /> Duración: {calcDuration(call?.startDate, call?.endDate)}
+                    <Icon name="clock" size={16} color="#6CCDEA" /> Duración: {calcDuration(call?.startDate, call?.endDate)}
                 </p>
             </div>
 
-            {/* Botón de detalles */}
-            <Button text="Ver detalles" onClick={() => onClick(call?.id || "")} />
+            {/* Icono de tres puntos en lugar de botón "Ver detalles" */}
+            <button
+                className={styles.detailButton}
+                onClick={() => onClick(call?.id || "")}
+            >
+                <Icon name="three-dots" size={24} color="#6CCDEA" />
+            </button>
         </div>
     );
 }

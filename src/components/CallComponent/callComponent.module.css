@@ -55,3 +55,13 @@
     font-weight: 300;
     width: 100%;
 }
+
+
+.detailButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  
